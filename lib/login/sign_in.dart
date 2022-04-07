@@ -7,7 +7,8 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(Icons.arrow_back),
+        elevation: 0,
+        backgroundColor: Colors.white,
         title: const Text("Sign In"),
       ),
       body: Container(),

@@ -35,7 +35,7 @@ class SplashScreenWidget extends StatelessWidget {
         }
       },
       listener: (context, state) {
-        if (state is LoggedIn) {
+        if (state is CheckingSession) {
           Navigator.pushNamed(context, "/sign-in");
         }
       },

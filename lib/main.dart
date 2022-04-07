@@ -16,10 +16,8 @@ class MyApp extends StatelessWidget {
         "/splash": (context) => const SplashScreen(),
         "/sign-in": (context) => const SignInScreen(),
       },
-      title: 'Bread Calculator',
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-      ),
+      title: 'My Weather',
+      theme: ThemeData(primarySwatch: Colors.lightBlue),
       home: const SplashScreen(),
     );
   }

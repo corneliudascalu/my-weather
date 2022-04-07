@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather/login/sign_in.dart';
 
 abstract class LoginState {}
 
-class LoggedIn extends LoginState {}
+class CheckingSession extends LoginState {}
 
 class LoggedOut extends LoginState {}
 
@@ -21,7 +19,7 @@ class WrongCredentials extends LoginEvent {}
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LoggedOut()) {
     on<SignInPressed>((event, emit) {
-      emit(LoggedIn());
+      emit(CheckingSession());
     });
   }
 }
