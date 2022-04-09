@@ -36,9 +36,12 @@ class SplashScreenWidget extends StatelessWidget {
         }
       },
       listener: (context, state) {
-        if (state is CheckingSession) {
+        if (state is NavigateToSignIn) {
           Navigator.pushNamed(context, "/sign-in");
         }
+      },
+      buildWhen: (previous, current) {
+        return (current is LoggedOut);
       },
     ));
   }
@@ -52,7 +55,8 @@ class SplashScreenWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             OutlinedButton(
-                onPressed: () => context.read<LoginBloc>().add(SignInPressed.empty()),
+                onPressed: () =>
+                    context.read<LoginBloc>().add(GoToSignInPressed()),
                 child: const Text(
                   "Sign In",
                   style: TextStyle(color: Colors.white),

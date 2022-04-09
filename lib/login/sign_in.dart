@@ -31,7 +31,16 @@ class _SignInFormState extends State<SignInForm> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginBloc, LoginState>(
+    return BlocConsumer<LoginBloc, LoginState>(
+      listener: (context, state) {
+        if (state is SignedIn) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("Logged in ${state.email}")));
+        } else if (state is FailedSignIn) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("Sign in error: ${state.message}")));
+        }
+      },
       builder: (context, state) => Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -55,10 +64,11 @@ class _SignInFormState extends State<SignInForm> {
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: signInTextFieldDecoration(),
-                      validator: (value) =>
-                          value != null && value.isNotEmpty && value.contains("@")
-                              ? null
-                              : "Please input an email address",
+                      validator: (value) => value != null &&
+                              value.isNotEmpty &&
+                              value.contains("@")
+                          ? null
+                          : "Please input an email address",
                     ),
                     vertical16,
                     buildLabel("Password"),
