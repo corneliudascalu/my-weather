@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         "/splash": (context) => const SplashScreen(),
-        "/sign-in": (context) => const SignInScreen(),
+        "/sign-in": (context) => const SignIn(),
       },
       title: 'My Weather',
       theme: ThemeData(primarySwatch: Colors.lightBlue),

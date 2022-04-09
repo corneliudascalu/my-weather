@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather/login/login_bloc.dart';
+import 'package:weather/style.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -51,14 +52,14 @@ class SplashScreenWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             OutlinedButton(
-                onPressed: () => context.read<LoginBloc>().add(SignInPressed()),
+                onPressed: () => context.read<LoginBloc>().add(SignInPressed.empty()),
                 child: const Text(
                   "Sign In",
                   style: TextStyle(color: Colors.white),
                 ),
                 style: signInButtonStyle(
                     backgroundColor: const Color(0xFF4cd964))),
-            const SizedBox(height: 16),
+            vertical16,
             OutlinedButton(
               onPressed: () => context.read<LoginBloc>().add(SignUpPressed()),
               child: const Text(
@@ -75,7 +76,7 @@ class SplashScreenWidget extends StatelessWidget {
               ),
               onPressed: null,
             ),
-            const SizedBox(height: 8)
+            vertical8
           ],
         ),
       ),
@@ -105,17 +106,6 @@ class SplashScreenWidget extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  ButtonStyle signInButtonStyle({Color backgroundColor = Colors.red}) {
-    return OutlinedButton.styleFrom(
-        padding: const EdgeInsets.all(16),
-        minimumSize: const Size(500, 56),
-        textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        backgroundColor: backgroundColor,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-        ));
   }
 
   Widget _circle({double radius = 300, Widget? child}) {

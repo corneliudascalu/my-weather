@@ -8,7 +8,16 @@ class LoggedOut extends LoginState {}
 
 abstract class LoginEvent {}
 
-class SignInPressed extends LoginEvent {}
+class SignInPressed extends LoginEvent {
+  final String email;
+  final String password;
+
+  SignInPressed.empty()
+      : email = "",
+        password = "";
+
+  SignInPressed(this.email, this.password);
+}
 
 class SignUpPressed extends LoginEvent {}
 
