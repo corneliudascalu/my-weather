@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:weather/firebase_options.dart';
+import 'package:weather/home/home.dart';
 import 'package:weather/login/sign_in.dart';
 import 'package:weather/splash.dart';
 
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       routes: {
         "/splash": (context) => const SplashScreen(),
         "/sign-in": (context) => const SignIn(),
+        "/home": (context) => const Home()
       },
       title: 'My Weather',
       theme: ThemeData(primarySwatch: Colors.lightBlue),

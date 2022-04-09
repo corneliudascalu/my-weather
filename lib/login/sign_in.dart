@@ -36,6 +36,7 @@ class _SignInFormState extends State<SignInForm> {
         if (state is SignedIn) {
           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text("Logged in ${state.email}")));
+          Navigator.pushNamed(context, "/home");
         } else if (state is FailedSignIn) {
           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text("Sign in error: ${state.message}")));

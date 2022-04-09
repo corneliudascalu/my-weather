@@ -36,6 +36,8 @@ class MaybeLaterPressed extends LoginEvent {}
 
 class WrongCredentials extends LoginEvent {}
 
+class SignOutPressed extends LoginEvent {}
+
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LoggedOut()) {
     on<GoToSignInPressed>((event, emit) => emit(NavigateToSignIn()));
@@ -50,5 +52,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         emit(FailedSignIn(e.message ?? "Unknown error"));
       }
     });
+    on<SignOutPressed>(
+      (event, emit) async {
+        await FirebaseAuth.instance.signOut();
+        emit(LoggedOut());
+      },
+    );
   }
 }
