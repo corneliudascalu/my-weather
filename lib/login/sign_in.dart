@@ -26,8 +26,10 @@ class SignInForm extends StatefulWidget {
 
 class _SignInFormState extends State<SignInForm> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController =
+      TextEditingController(text: "test@email.com");
+  final TextEditingController _passwordController =
+      TextEditingController(text: "Test123");
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class _SignInFormState extends State<SignInForm> {
         if (state is SignedIn) {
           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text("Logged in ${state.email}")));
-          Navigator.pushNamed(context, "/home");
+          Navigator.popUntil(context, ModalRoute.withName("/launcher"));
         } else if (state is FailedSignIn) {
           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text("Sign in error: ${state.message}")));

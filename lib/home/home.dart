@@ -23,9 +23,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<LoginBloc, LoginState>(
       listener: (context, state) {
-        if (state is LoggedOut) {
-          Navigator.popUntil(context, ModalRoute.withName("/sign-in"));
-        }
+        // TODO
       },
       builder: (context, state) => Scaffold(
         appBar: AppBar(
