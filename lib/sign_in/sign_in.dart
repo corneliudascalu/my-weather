@@ -2,29 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../style.dart';
-import 'login_bloc.dart';
+import 'auth_bloc.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (BuildContext context) {
-          return LoginBloc();
-        },
-        child: SignInForm(key: key));
+    return _SignInForm(key: key);
   }
 }
 
-class SignInForm extends StatefulWidget {
-  const SignInForm({Key? key}) : super(key: key);
+class _SignInForm extends StatefulWidget {
+  const _SignInForm({Key? key}) : super(key: key);
 
   @override
-  State<SignInForm> createState() => _SignInFormState();
+  State<_SignInForm> createState() => _SignInFormState();
 }
 
-class _SignInFormState extends State<SignInForm> {
+class _SignInFormState extends State<_SignInForm> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController =
       TextEditingController(text: "test@email.com");
@@ -33,11 +29,9 @@ class _SignInFormState extends State<SignInForm> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<LoginBloc, LoginState>(
+    return BlocConsumer<AuthBloc, SignInState>(
       listener: (context, state) {
         if (state is SignedIn) {
-          ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Logged in ${state.email}")));
           Navigator.popUntil(context, ModalRoute.withName("/launcher"));
         } else if (state is FailedSignIn) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -88,7 +82,7 @@ class _SignInFormState extends State<SignInForm> {
                         onPressed: () => {
                               if (_formKey.currentState?.validate() == true)
                                 {
-                                  context.read<LoginBloc>().add(SignInPressed(
+                                  context.read<AuthBloc>().add(SignInPressed(
                                         _emailController.text.trim(),
                                         _passwordController.text.trim(),
                                       ))

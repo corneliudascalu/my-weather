@@ -1,45 +1,45 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-abstract class LoginState {}
+abstract class SignInState {}
 
-class NavigateToSignIn extends LoginState {}
+class NavigateToSignIn extends SignInState {}
 
-class SignedIn extends LoginState {
+class SignedIn extends SignInState {
   final String? email;
 
   SignedIn(this.email);
 }
 
-class FailedSignIn extends LoginState {
+class FailedSignIn extends SignInState {
   final String message;
 
   FailedSignIn(this.message);
 }
 
-class LoggedOut extends LoginState {}
+class SignedOut extends SignInState {}
 
-abstract class LoginEvent {}
+abstract class SignInEvent {}
 
-class GoToSignInPressed extends LoginEvent {}
+class GoToSignInPressed extends SignInEvent {}
 
-class SignUpPressed extends LoginEvent {}
+class SignUpPressed extends SignInEvent {}
 
-class SignInPressed extends LoginEvent {
+class SignInPressed extends SignInEvent {
   final String email;
   final String password;
 
   SignInPressed(this.email, this.password);
 }
 
-class MaybeLaterPressed extends LoginEvent {}
+class MaybeLaterPressed extends SignInEvent {}
 
-class WrongCredentials extends LoginEvent {}
+class WrongCredentials extends SignInEvent {}
 
-class SignOutPressed extends LoginEvent {}
+class SignOutPressed extends SignInEvent {}
 
-class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc() : super(LoggedOut()) {
+class AuthBloc extends Bloc<SignInEvent, SignInState> {
+  AuthBloc() : super(SignedOut()) {
     on<GoToSignInPressed>((event, emit) => emit(NavigateToSignIn()));
     on<SignInPressed>((event, emit) async {
       try {
@@ -55,7 +55,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<SignOutPressed>(
       (event, emit) async {
         await FirebaseAuth.instance.signOut();
-        // emit(LoggedOut());
+        emit(SignedOut());
       },
     );
   }

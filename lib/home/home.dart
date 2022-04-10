@@ -1,27 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather/login/login_bloc.dart';
+import 'package:weather/sign_in/auth_bloc.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) {
-        return LoginBloc();
-      },
-      child: HomeScreen(key: key),
-    );
+    return _HomeScreen(key: key);
   }
 }
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class _HomeScreen extends StatelessWidget {
+  const _HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<LoginBloc, LoginState>(
+    return BlocConsumer<AuthBloc, SignInState>(
       listener: (context, state) {
         // TODO
       },
@@ -31,7 +26,7 @@ class HomeScreen extends StatelessWidget {
           actions: [
             IconButton(
                 onPressed: () {
-                  context.read<LoginBloc>().add(SignOutPressed());
+                  context.read<AuthBloc>().add(SignOutPressed());
                 },
                 icon: const Icon(Icons.logout))
           ],

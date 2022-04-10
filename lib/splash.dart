@@ -1,30 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather/login/login_bloc.dart';
+import 'package:weather/sign_in/auth_bloc.dart';
 import 'package:weather/style.dart';
 
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+class Splash extends StatelessWidget {
+  const Splash({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (context) => LoginBloc(), child: const SplashScreenWidget());
+    return const _SplashScreenWidget();
   }
 }
 
-class SplashScreenWidget extends StatelessWidget {
+class _SplashScreenWidget extends StatelessWidget {
   final radius = 300.0;
   final circleColor = const Color(0x3595989a);
 
-  const SplashScreenWidget({Key? key}) : super(key: key);
+  const _SplashScreenWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: BlocConsumer<LoginBloc, LoginState>(
+        body: BlocConsumer<AuthBloc, SignInState>(
       builder: (context, state) {
-        if (state is LoggedOut) {
+        if (state is SignedOut) {
           return Stack(
             children: [
               buildCenterWidget(radius),
@@ -41,7 +40,7 @@ class SplashScreenWidget extends StatelessWidget {
         }
       },
       buildWhen: (previous, current) {
-        return (current is LoggedOut);
+        return (current is SignedOut);
       },
     ));
   }
@@ -56,7 +55,7 @@ class SplashScreenWidget extends StatelessWidget {
           children: [
             OutlinedButton(
                 onPressed: () =>
-                    context.read<LoginBloc>().add(GoToSignInPressed()),
+                    context.read<AuthBloc>().add(GoToSignInPressed()),
                 child: const Text(
                   "Sign In",
                   style: TextStyle(color: Colors.white),
@@ -65,7 +64,7 @@ class SplashScreenWidget extends StatelessWidget {
                     backgroundColor: const Color(0xFF4cd964))),
             vertical16,
             OutlinedButton(
-              onPressed: () => context.read<LoginBloc>().add(SignUpPressed()),
+              onPressed: () => context.read<AuthBloc>().add(SignUpPressed()),
               child: const Text(
                 "Sign Up",
                 style: TextStyle(color: Colors.white),

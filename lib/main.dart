@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:weather/firebase_options.dart';
 import 'package:weather/home/home.dart';
-import 'package:weather/login/login_bloc.dart';
-import 'package:weather/login/sign_in.dart';
-import 'package:weather/login/user_repository.dart';
+import 'package:weather/sign_in/auth_bloc.dart';
+import 'package:weather/sign_in/sign_in.dart';
+import 'package:weather/sign_in/user_repository.dart';
 import 'package:weather/splash.dart';
 
 void main() async {
@@ -28,9 +28,9 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               UserRepository(FirebaseAuth.instance).authStateChanges,
         ),
-        /*BlocProvider<LoginBloc>(
-          create: (context) => LoginBloc(),
-        )*/
+        BlocProvider<AuthBloc>(
+          create: (context) => AuthBloc(),
+        )
       ],
       child: MaterialApp(
         routes: {
@@ -55,7 +55,7 @@ class Launcher extends StatelessWidget {
     if (user != null) {
       return const Home();
     } else {
-      return const SplashScreen();
+      return const Splash();
     }
   }
 }
