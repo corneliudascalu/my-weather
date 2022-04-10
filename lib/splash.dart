@@ -18,20 +18,37 @@ class _SplashScreenWidget extends StatelessWidget {
 
   const _SplashScreenWidget({Key? key}) : super(key: key);
 
+  Future<bool> _delay() async {
+    await Future.delayed(const Duration(seconds: 2));
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: BlocConsumer<AuthBloc, SignInState>(
       builder: (context, state) {
         if (state is SignedOut) {
-          return Stack(
-            children: [
-              buildCenterWidget(radius),
-              buildSignInButtons(context),
-            ],
+          return FutureBuilder<bool>(
+            future: _delay(),
+            builder: (context, snapshot) {
+              if(!snapshot.hasData){
+                return _buildCenterWidget(radius);
+              }else {
+                return Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 100),
+                      child: _buildCenterWidget(radius),
+                    ),
+                    _buildSignInButtons(context),
+                  ],
+                );
+              }
+            }
           );
         } else {
-          return buildCenterWidget(radius);
+          return _buildCenterWidget(radius);
         }
       },
       listener: (context, state) {
@@ -45,7 +62,7 @@ class _SplashScreenWidget extends StatelessWidget {
     ));
   }
 
-  Align buildSignInButtons(BuildContext context) {
+  Align _buildSignInButtons(BuildContext context) {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Padding(
@@ -86,7 +103,7 @@ class _SplashScreenWidget extends StatelessWidget {
     );
   }
 
-  Center buildCenterWidget(double radius) {
+  Center _buildCenterWidget(double radius) {
     return Center(
       child: Stack(
         alignment: Alignment.center,
