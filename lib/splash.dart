@@ -30,23 +30,22 @@ class _SplashScreenWidget extends StatelessWidget {
       builder: (context, state) {
         if (state is SignedOut) {
           return FutureBuilder<bool>(
-            future: _delay(),
-            builder: (context, snapshot) {
-              if(!snapshot.hasData){
-                return _buildCenterWidget(radius);
-              }else {
-                return Stack(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 100),
-                      child: _buildCenterWidget(radius),
-                    ),
-                    _buildSignInButtons(context),
-                  ],
-                );
-              }
-            }
-          );
+              future: _delay(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return _buildCenterWidget(radius);
+                } else {
+                  return Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 100),
+                        child: _buildCenterWidget(radius),
+                      ),
+                      _buildSignInButtons(context),
+                    ],
+                  );
+                }
+              });
         } else {
           return _buildCenterWidget(radius);
         }
@@ -54,6 +53,8 @@ class _SplashScreenWidget extends StatelessWidget {
       listener: (context, state) {
         if (state is NavigateToSignIn) {
           Navigator.pushNamed(context, "/sign-in");
+        } else if (state is NavigateToSignUp) {
+          Navigator.pushNamed(context, "/sign-up");
         }
       },
       buildWhen: (previous, current) {
@@ -81,7 +82,7 @@ class _SplashScreenWidget extends StatelessWidget {
                     backgroundColor: const Color(0xFF4cd964))),
             vertical16,
             OutlinedButton(
-              onPressed: () => context.read<AuthBloc>().add(SignUpPressed()),
+              onPressed: () => context.read<AuthBloc>().add(GoToSignUpPressed()),
               child: const Text(
                 "Sign Up",
                 style: TextStyle(color: Colors.white),

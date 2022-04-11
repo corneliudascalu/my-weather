@@ -7,6 +7,7 @@ import 'package:weather/firebase_options.dart';
 import 'package:weather/home/home.dart';
 import 'package:weather/sign_in/auth_bloc.dart';
 import 'package:weather/sign_in/sign_in.dart';
+import 'package:weather/sign_in/sign_up.dart';
 import 'package:weather/sign_in/user_repository.dart';
 import 'package:weather/splash.dart';
 
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         routes: {
           "/launcher": (context) => const Launcher(),
           "/sign-in": (context) => const SignIn(),
+          "/sign-up": (context) => const SignUp(),
         },
         title: 'My Weather',
         theme: ThemeData(primarySwatch: Colors.lightBlue),

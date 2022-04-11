@@ -5,6 +5,8 @@ abstract class SignInState {}
 
 class NavigateToSignIn extends SignInState {}
 
+class NavigateToSignUp extends SignInState {}
+
 class SignedIn extends SignInState {
   final String? email;
 
@@ -22,6 +24,8 @@ class SignedOut extends SignInState {}
 abstract class SignInEvent {}
 
 class GoToSignInPressed extends SignInEvent {}
+
+class GoToSignUpPressed extends SignInEvent {}
 
 class SignUpPressed extends SignInEvent {}
 
@@ -58,5 +62,6 @@ class AuthBloc extends Bloc<SignInEvent, SignInState> {
         emit(SignedOut());
       },
     );
+    on<GoToSignUpPressed>((event, emit) => emit(NavigateToSignUp()));
   }
 }
